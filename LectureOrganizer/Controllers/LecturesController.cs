@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -23,6 +24,7 @@ namespace LectureOrganizer.Controllers
 
         // GET: api/Lectures
         [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<Lecture>), (int) HttpStatusCode.OK)]
         public async Task<ActionResult<IEnumerable<Lecture>>> GetLectures()
         {
             return await _context.Lectures.ToListAsync();
@@ -30,6 +32,7 @@ namespace LectureOrganizer.Controllers
 
         // GET: api/Lectures/5
         [HttpGet("{id}")]
+        [ProducesResponseType(typeof(Lecture), (int) HttpStatusCode.OK)]
         public async Task<ActionResult<Lecture>> GetLecture(Guid id)
         {
             var lecture = await _context.Lectures.FindAsync(id);
@@ -46,6 +49,7 @@ namespace LectureOrganizer.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
+        [ProducesResponseType(typeof(int), (int) HttpStatusCode.OK)]
         public async Task<IActionResult> PutLecture(Guid id, Lecture lecture)
         {
             if (id != lecture.Id)
@@ -79,6 +83,7 @@ namespace LectureOrganizer.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
+        [ProducesResponseType(typeof(Lecture), (int) HttpStatusCode.OK)]
         public async Task<ActionResult<Lecture>> PostLecture(Lecture lecture)
         {
             _context.Lectures.Add(lecture);
@@ -103,6 +108,7 @@ namespace LectureOrganizer.Controllers
 
         // DELETE: api/Lectures/5
         [HttpDelete("{id}")]
+        [ProducesResponseType(typeof(Lecture), (int) HttpStatusCode.OK)]
         public async Task<ActionResult<Lecture>> DeleteLecture(Guid id)
         {
             var lecture = await _context.Lectures.FindAsync(id);

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -15,5 +16,7 @@ namespace LectureOrganizer.Models
         public string Study { get; set; }
         public string Professor { get; set; }
         public DateTime Date { get; set; }
+
+        public List<LectureComment> LectureComments { get; set; }
     }
 }

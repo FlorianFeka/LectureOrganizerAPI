@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -23,6 +25,7 @@ namespace LectureOrganizer.Controllers
 
         // GET: api/Users
         [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<User>), (int) HttpStatusCode.OK)]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
             return await _context.Users.ToListAsync();
@@ -30,6 +33,7 @@ namespace LectureOrganizer.Controllers
 
         // GET: api/Users/5
         [HttpGet("{id}")]
+        [ProducesResponseType(typeof(User), (int) HttpStatusCode.OK)]
         public async Task<ActionResult<User>> GetUser(Guid id)
         {
             var user = await _context.Users.FindAsync(id);
@@ -46,14 +50,13 @@ namespace LectureOrganizer.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
+        [ProducesResponseType(typeof(int), (int) HttpStatusCode.OK)]
         public async Task<IActionResult> PutUser(Guid id, User user)
         {
             if (id != user.Id)
             {
                 return BadRequest();
             }
-
-
 
             _context.Entry(user).State = EntityState.Modified;
 
@@ -80,6 +83,7 @@ namespace LectureOrganizer.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
+        [ProducesResponseType(typeof(User), (int) HttpStatusCode.OK)]
         public async Task<ActionResult<User>> PostUser(User user)
         {
             _context.Users.Add(user);
@@ -104,6 +108,7 @@ namespace LectureOrganizer.Controllers
 
         // DELETE: api/Users/5
         [HttpDelete("{id}")]
+        [ProducesResponseType(typeof(User), (int) HttpStatusCode.OK)]
         public async Task<ActionResult<User>> DeleteUser(Guid id)
         {
             var user = await _context.Users.FindAsync(id);

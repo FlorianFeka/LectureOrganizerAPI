@@ -7,7 +7,7 @@ namespace LectureOrganizer.Data
     {
         public LectureContext(DbContextOptions<LectureContext> options) : base(options)
         {
-
+            
         }
 
         public DbSet<User> Users { get; set; }
