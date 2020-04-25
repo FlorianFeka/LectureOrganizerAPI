@@ -9,7 +9,7 @@ namespace LectureOrganizer.Models
     {
         [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public Guid Id { get; set; } = Guid.NewGuid();
+        public int Id { get; set; } //= Guid.NewGuid();
         [Required]
         public string Name { get; set; }
         public string Subject { get; set; }

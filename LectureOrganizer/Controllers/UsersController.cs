@@ -51,7 +51,7 @@ namespace LectureOrganizer.Controllers
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(int), (int) HttpStatusCode.OK)]
-        public async Task<IActionResult> PutUser(Guid id, User user)
+        public async Task<IActionResult> PutUser(int id, User user)
         {
             if (id != user.Id)
             {
@@ -123,7 +123,7 @@ namespace LectureOrganizer.Controllers
             return user;
         }
 
-        private bool UserExists(Guid id)
+        private bool UserExists(int id)
         {
             return _context.Users.Any(e => e.Id == id);
         }

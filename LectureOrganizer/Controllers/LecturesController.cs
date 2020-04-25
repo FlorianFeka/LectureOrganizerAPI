@@ -50,7 +50,7 @@ namespace LectureOrganizer.Controllers
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(int), (int) HttpStatusCode.OK)]
-        public async Task<IActionResult> PutLecture(Guid id, Lecture lecture)
+        public async Task<IActionResult> PutLecture(int id, Lecture lecture)
         {
             if (id != lecture.Id)
             {
@@ -123,7 +123,7 @@ namespace LectureOrganizer.Controllers
             return lecture;
         }
 
-        private bool LectureExists(Guid id)
+        private bool LectureExists(int id)
         {
             return _context.Lectures.Any(e => e.Id == id);
         }
