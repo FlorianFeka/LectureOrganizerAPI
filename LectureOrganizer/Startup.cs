@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace LectureOrganizer
 {
@@ -23,7 +24,9 @@ namespace LectureOrganizer
         {
             services.AddDbContext<LectureContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("LectureDB")));
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
 
             services.AddSwaggerDocument();
         }

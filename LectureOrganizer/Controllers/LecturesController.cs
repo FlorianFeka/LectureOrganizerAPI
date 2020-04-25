@@ -29,16 +29,19 @@ namespace LectureOrganizer.Controllers
         {
             return await _context.Lectures
                 .Include(e => e.LectureComments)
+                .ThenInclude(e => e.User)
                 .ToListAsync();
         }
 
         // GET: api/Lectures/5
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(Lecture), (int) HttpStatusCode.OK)]
-        public async Task<ActionResult<Lecture>> GetLecture(Guid id)
+        public async Task<ActionResult<Lecture>> GetLecture(int id)
         {
             var lecture = await _context.Lectures
-                .FindAsync(id);
+                .Include(e => e.LectureComments)
+                .ThenInclude(e => e.User)
+                .FirstOrDefaultAsync(x => x.LectureId == id);
 
             if (lecture == null)
             {
