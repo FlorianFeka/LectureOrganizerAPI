@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using LectureOrganizer.Models;
 
@@ -17,6 +18,7 @@ namespace LectureOrganizer.Data.Seeder
             {
                 new Lecture
                 {
+                    LectureId = 1,
                     Name = "Infomatik 101",
                     Professor = "Proff Proff",
                     Study = "Informatik",
@@ -25,6 +27,7 @@ namespace LectureOrganizer.Data.Seeder
                 },
                 new Lecture
                 {
+                    LectureId = 2,
                     Name = "Algebra 101",
                     Professor = "Proff Soff",
                     Study = "Mathematik",
@@ -33,11 +36,7 @@ namespace LectureOrganizer.Data.Seeder
                 },
             };
 
-            foreach (var lecture in lectures)
-            {
-                context.Lectures.Add(lecture);
-            }
-            context.SaveChanges();
+            context.Lectures.AddRange(lectures);
         }
     }
 }

@@ -22,7 +22,7 @@ namespace LectureOrganizer
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<LectureContext>(options =>
-                options.UseInMemoryDatabase("Lecture"));
+                options.UseSqlServer(Configuration.GetConnectionString("LectureDB")));
             services.AddControllers();
 
             services.AddSwaggerDocument();

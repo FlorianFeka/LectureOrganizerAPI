@@ -27,7 +27,9 @@ namespace LectureOrganizer.Controllers
         [ProducesResponseType(typeof(IEnumerable<Lecture>), (int) HttpStatusCode.OK)]
         public async Task<ActionResult<IEnumerable<Lecture>>> GetLectures()
         {
-            return await _context.Lectures.ToListAsync();
+            return await _context.Lectures
+                .Include(e => e.LectureComments)
+                .ToListAsync();
         }
 
         // GET: api/Lectures/5
@@ -35,7 +37,8 @@ namespace LectureOrganizer.Controllers
         [ProducesResponseType(typeof(Lecture), (int) HttpStatusCode.OK)]
         public async Task<ActionResult<Lecture>> GetLecture(Guid id)
         {
-            var lecture = await _context.Lectures.FindAsync(id);
+            var lecture = await _context.Lectures
+                .FindAsync(id);
 
             if (lecture == null)
             {
@@ -52,7 +55,7 @@ namespace LectureOrganizer.Controllers
         [ProducesResponseType(typeof(int), (int) HttpStatusCode.OK)]
         public async Task<IActionResult> PutLecture(int id, Lecture lecture)
         {
-            if (id != lecture.Id)
+            if (id != lecture.LectureId)
             {
                 return BadRequest();
             }
@@ -93,7 +96,7 @@ namespace LectureOrganizer.Controllers
             }
             catch (DbUpdateException)
             {
-                if (LectureExists(lecture.Id))
+                if (LectureExists(lecture.LectureId))
                 {
                     return Conflict();
                 }
@@ -103,7 +106,7 @@ namespace LectureOrganizer.Controllers
                 }
             }
 
-            return CreatedAtAction("GetLecture", new { id = lecture.Id }, lecture);
+            return CreatedAtAction("GetLecture", new { id = lecture.LectureId }, lecture);
         }
 
         // DELETE: api/Lectures/5
@@ -125,7 +128,7 @@ namespace LectureOrganizer.Controllers
 
         private bool LectureExists(int id)
         {
-            return _context.Lectures.Any(e => e.Id == id);
+            return _context.Lectures.Any(e => e.LectureId == id);
         }
     }
 }

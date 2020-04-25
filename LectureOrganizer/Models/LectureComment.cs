@@ -1,4 +1,3 @@
-using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -8,7 +7,7 @@ namespace LectureOrganizer.Models
     {
         [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int Id { get; set; } //= Guid.NewGuid();
+        public int LectureCommentId { get; set; } //= Guid.NewGuid();
         [Required]
         public string Text { get; set; }
         public int LectureId { get; set; }

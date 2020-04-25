@@ -13,6 +13,9 @@ namespace LectureOrganizer.Data
 
             UserSeeder.Seed(context);
             LectureSeeder.Seed(context);
+            LectureCommentSeeder.Seed(context);
+
+            context.SaveChanges();
         }
     }
 }

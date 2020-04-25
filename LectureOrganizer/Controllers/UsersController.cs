@@ -53,7 +53,7 @@ namespace LectureOrganizer.Controllers
         [ProducesResponseType(typeof(int), (int) HttpStatusCode.OK)]
         public async Task<IActionResult> PutUser(int id, User user)
         {
-            if (id != user.Id)
+            if (id != user.UserId)
             {
                 return BadRequest();
             }
@@ -93,7 +93,7 @@ namespace LectureOrganizer.Controllers
             }
             catch (DbUpdateException)
             {
-                if (UserExists(user.Id))
+                if (UserExists(user.UserId))
                 {
                     return Conflict();
                 }
@@ -103,7 +103,7 @@ namespace LectureOrganizer.Controllers
                 }
             }
 
-            return CreatedAtAction("GetUser", new { id = user.Id }, user);
+            return CreatedAtAction("GetUser", new { id = user.UserId }, user);
         }
 
         // DELETE: api/Users/5
@@ -125,7 +125,7 @@ namespace LectureOrganizer.Controllers
 
         private bool UserExists(int id)
         {
-            return _context.Users.Any(e => e.Id == id);
+            return _context.Users.Any(e => e.UserId == id);
         }
     }
 }
