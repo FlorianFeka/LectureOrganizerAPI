@@ -21,6 +21,18 @@ namespace LectureOrganizer
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy(
+                    name: "dev",
+                    builder =>
+                    {
+                        builder.WithOrigins(
+                            "http://localhost:5000",
+                            "https://localhost:5001",
+                            "http://localhost:4200");
+                    });
+            });
             services.AddDbContext<LectureContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("LectureDB")));
             services.AddControllers().AddNewtonsoftJson(options =>
@@ -41,6 +53,8 @@ namespace LectureOrganizer
             //app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors("dev");
 
             app.UseAuthorization();
 
