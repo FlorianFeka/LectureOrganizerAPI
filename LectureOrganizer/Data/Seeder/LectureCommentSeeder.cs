@@ -15,32 +15,33 @@ namespace LectureOrganizer.Data.Seeder
                 return;
             }
 
+            var lectureIds = context.Lectures.Select(x => x.LectureId).ToArray();
+            var userIds = context.Users.Select(x => x.UserId).ToArray();
+
             var lectureComments = new LectureComment[]
             {
                 new LectureComment
                 {
-                    LectureCommentId = 1,
-                    UserId = 1,
-                    LectureId = 1,
+                    UserId = userIds[0],
+                    LectureId = lectureIds[0],
                     Text = "Test comment"
                 },
                 new LectureComment
                 {
-                    LectureCommentId = 2,
-                    UserId = 3,
-                    LectureId = 1,
+                    UserId = userIds[1],
+                    LectureId = lectureIds[0],
                     Text = "Test comment"
                 },
                 new LectureComment
                 {
-                    LectureCommentId = 3,
-                    UserId = 2,
-                    LectureId = 2,
+                    UserId = userIds[2],
+                    LectureId = lectureIds[1],
                     Text = "Test comment"
                 },
             };
 
             context.LectureComments.AddRange(lectureComments);
+            context.SaveChanges();
         }
     }
 }

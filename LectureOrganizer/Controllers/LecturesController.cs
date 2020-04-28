@@ -37,7 +37,7 @@ namespace LectureOrganizer.Controllers
         // GET: api/Lectures/5
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(Lecture), (int) HttpStatusCode.OK)]
-        public async Task<ActionResult<Lecture>> GetLecture(int id)
+        public async Task<ActionResult<Lecture>> GetLecture(Guid id)
         {
             var lecture = await _context.Lectures
                 .Include(e => e.LectureComments)
@@ -57,7 +57,7 @@ namespace LectureOrganizer.Controllers
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(int), (int) HttpStatusCode.OK)]
-        public async Task<IActionResult> PutLecture(int id, Lecture lecture)
+        public async Task<IActionResult> PutLecture(Guid id, Lecture lecture)
         {
             if (id != lecture.LectureId)
             {
@@ -130,7 +130,7 @@ namespace LectureOrganizer.Controllers
             return lecture;
         }
 
-        private bool LectureExists(int id)
+        private bool LectureExists(Guid id)
         {
             return _context.Lectures.Any(e => e.LectureId == id);
         }

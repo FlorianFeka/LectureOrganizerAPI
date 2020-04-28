@@ -18,7 +18,6 @@ namespace LectureOrganizer.Data.Seeder
             {
                 new Lecture
                 {
-                    LectureId = 1,
                     Name = "Infomatik 101",
                     Professor = "Proff Proff",
                     Study = "Informatik",
@@ -27,7 +26,6 @@ namespace LectureOrganizer.Data.Seeder
                 },
                 new Lecture
                 {
-                    LectureId = 2,
                     Name = "Algebra 101",
                     Professor = "Proff Soff",
                     Study = "Mathematik",
@@ -37,6 +35,7 @@ namespace LectureOrganizer.Data.Seeder
             };
 
             context.Lectures.AddRange(lectures);
+            context.SaveChanges();
         }
     }
 }
