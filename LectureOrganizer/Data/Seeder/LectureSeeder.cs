@@ -18,6 +18,7 @@ namespace LectureOrganizer.Data.Seeder
             {
                 new Lecture
                 {
+                    Uni = "TU Wien",
                     Name = "Infomatik 101",
                     Professor = "Proff Proff",
                     Study = "Informatik",
@@ -26,6 +27,7 @@ namespace LectureOrganizer.Data.Seeder
                 },
                 new Lecture
                 {
+                    Uni = "Uni Wien",
                     Name = "Algebra 101",
                     Professor = "Proff Soff",
                     Study = "Mathematik",

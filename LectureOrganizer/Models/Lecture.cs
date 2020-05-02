@@ -12,8 +12,15 @@ namespace LectureOrganizer.Models
         public Guid LectureId { get; set; } = Guid.NewGuid();
         [Required]
         public string Name { get; set; }
-        public string Subject { get; set; }
+        [Required]
+        public string Uni { get; set; }
+        [Required]
         public string Study { get; set; }
+        [Required]
+        public string Subject { get; set; }
+        [Column(TypeName = "TINYINT")]
+        [Range(0, 5)]
+        public int Rating { get; set; }
         public string Professor { get; set; }
         public DateTime Date { get; set; }
 
