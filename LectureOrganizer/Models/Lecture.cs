@@ -13,17 +13,18 @@ namespace LectureOrganizer.Models
         [Required]
         public string Name { get; set; }
         [Required]
-        public string Uni { get; set; }
+        public Guid UniId { get; set; }
         [Required]
         public string Study { get; set; }
         [Required]
         public string Subject { get; set; }
         [Column(TypeName = "TINYINT")]
         [Range(0, 5)]
-        public int Rating { get; set; }
+        public float Rating { get; set; }
         public string Professor { get; set; }
         public DateTime Date { get; set; }
 
+        public virtual Uni Unis { get; set; }
         public List<LectureComment> LectureComments { get; set; }
     }
 }

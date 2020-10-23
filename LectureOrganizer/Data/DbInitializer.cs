@@ -12,6 +12,7 @@ namespace LectureOrganizer.Data
             context.Database.EnsureCreated();
 
             UserSeeder.Seed(context);
+            UniSeeder.Seed(context);
             LectureSeeder.Seed(context);
             LectureCommentSeeder.Seed(context);
 

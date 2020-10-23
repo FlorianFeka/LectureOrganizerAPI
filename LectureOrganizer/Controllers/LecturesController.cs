@@ -29,6 +29,7 @@ namespace LectureOrganizer.Controllers
         public async Task<ActionResult<IEnumerable<Lecture>>> GetLectures()
         {
             return await _context.Lectures
+                .Include(e => e.Unis)
                 .Include(e => e.LectureComments)
                 .ThenInclude(e => e.User)
                 .ToListAsync();
