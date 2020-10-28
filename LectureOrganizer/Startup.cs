@@ -27,12 +27,9 @@ namespace LectureOrganizer
                     name: "dev",
                     builder =>
                     {
-                        builder.WithOrigins(
-                            "http://localhost:5000",
-                            "https://localhost:5001",
-                            "http://localhost:4200");
-                        builder.AllowAnyMethod();
-                        builder.AllowAnyHeader();
+                        builder.AllowAnyOrigin()
+                            .AllowAnyMethod()
+                            .AllowAnyHeader();
                     });
             });
             services.AddDbContext<LectureContext>(options =>
