@@ -14,33 +14,32 @@ namespace LectureOrganizer.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class LecturesController : ControllerBase
+    public class LectureController : ControllerBase
     {
         private readonly LectureContext _context;
 
-        public LecturesController(LectureContext context)
+        public LectureController(LectureContext context)
         {
             _context = context;
         }
 
-        // GET: api/Lectures
+        // GET: api/Lecture
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<Lecture>), (int) HttpStatusCode.OK)]
         public async Task<ActionResult<IEnumerable<Lecture>>> GetLectures()
         {
-            return await _context.Lectures
-                .Include(e => e.Unis)
-                .Include(e => e.LectureComments)
-                .ThenInclude(e => e.User)
+            return await _context.Lecture
+                .Include(e => e.Uni)
                 .ToListAsync();
         }
 
-        // GET: api/Lectures/5
+        // GET: api/Lecture/5
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(Lecture), (int) HttpStatusCode.OK)]
         public async Task<ActionResult<Lecture>> GetLecture(Guid id)
         {
-            var lecture = await _context.Lectures
+            var lecture = await _context.Lecture
+                .Include(e => e.Uni)
                 .Include(e => e.LectureComments)
                 .ThenInclude(e => e.User)
                 .FirstOrDefaultAsync(x => x.LectureId == id);
@@ -53,7 +52,7 @@ namespace LectureOrganizer.Controllers
             return lecture;
         }
 
-        // PUT: api/Lectures/5
+        // PUT: api/Lecture/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
@@ -65,7 +64,7 @@ namespace LectureOrganizer.Controllers
                 return BadRequest();
             }
 
-            _context.Lectures.Update(lecture);
+            _context.Lecture.Update(lecture);
             _context.Entry(lecture).State = EntityState.Modified;
 
             try
@@ -78,54 +77,49 @@ namespace LectureOrganizer.Controllers
                 {
                     return NotFound();
                 }
-                else
-                {
-                    throw;
-                }
+                throw;
             }
 
             return NoContent();
         }
 
-        // POST: api/Lectures
+        // POST: api/Lecture
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
         [ProducesResponseType(typeof(Lecture), (int) HttpStatusCode.OK)]
         public async Task<ActionResult<Lecture>> PostLecture(Lecture lecture)
         {
-            _context.Lectures.Add(lecture);
+            lecture.LectureId = Guid.NewGuid();
+            _context.Lecture.Add(lecture);
             try
             {
                 await _context.SaveChangesAsync();
             }
-            catch (DbUpdateException)
+            catch (DbUpdateException exception)
             {
                 if (LectureExists(lecture.LectureId))
                 {
                     return Conflict();
                 }
-                else
-                {
-                    throw;
-                }
+                throw exception;
             }
 
             return CreatedAtAction("GetLecture", new { id = lecture.LectureId }, lecture);
         }
 
-        // DELETE: api/Lectures/5
+        // DELETE: api/Lecture/5
         [HttpDelete("{id}")]
         [ProducesResponseType(typeof(Lecture), (int) HttpStatusCode.OK)]
         public async Task<ActionResult<Lecture>> DeleteLecture(Guid id)
         {
-            var lecture = await _context.Lectures.FindAsync(id);
+            var lecture = await _context.Lecture.FindAsync(id);
             if (lecture == null)
             {
                 return NotFound();
             }
 
-            _context.Lectures.Remove(lecture);
+            _context.Lecture.Remove(lecture);
             await _context.SaveChangesAsync();
 
             return lecture;
@@ -133,7 +127,7 @@ namespace LectureOrganizer.Controllers
 
         private bool LectureExists(Guid id)
         {
-            return _context.Lectures.Any(e => e.LectureId == id);
+            return _context.Lecture.Any(e => e.LectureId == id);
         }
     }
 }

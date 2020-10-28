@@ -7,7 +7,7 @@ namespace LectureOrganizer.Data.Seeder
     {
          public static void Seed(LectureContext context)
          {
-             if (context.Unis.Any())
+             if (context.Uni.Any())
              {
                  return;
              }
@@ -24,7 +24,7 @@ namespace LectureOrganizer.Data.Seeder
                  },
              };
 
-             context.Unis.AddRange(unis);
+             context.Uni.AddRange(unis);
              context.SaveChanges();
          }
     }

@@ -24,7 +24,7 @@ namespace LectureOrganizer.Models
         public string Professor { get; set; }
         public DateTime Date { get; set; }
 
-        public virtual Uni Unis { get; set; }
+        public virtual Uni Uni { get; set; }
         public List<LectureComment> LectureComments { get; set; }
     }
 }

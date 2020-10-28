@@ -8,12 +8,12 @@ namespace LectureOrganizer.Data.Seeder
     {
         public static void Seed(LectureContext context)
         {
-            if (context.Lectures.Any())
+            if (context.Lecture.Any())
             {
                 return;
             }
             
-            var unis = context.Unis.Select(x => x.UniId).ToArray();
+            var unis = context.Uni.Select(x => x.UniId).ToArray();
 
             var lectures = new Lecture[]
             {
@@ -39,7 +39,7 @@ namespace LectureOrganizer.Data.Seeder
                 },
             };
 
-            context.Lectures.AddRange(lectures);
+            context.Lecture.AddRange(lectures);
             context.SaveChanges();
         }
     }
