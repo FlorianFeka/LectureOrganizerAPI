@@ -11,6 +11,8 @@ namespace LectureOrganizer.Models
         public Guid LectureCommentId { get; set; } = Guid.NewGuid();
         [Required]
         public string Text { get; set; }
+        [Required]
+        public DateTime Date { get; set; }
         public Guid LectureId { get; set; }
         public Guid UserId { get; set; }
 

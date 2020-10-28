@@ -7,7 +7,7 @@ namespace LectureOrganizer.Data.Seeder
     {
         public static void Seed(LectureContext context)
         {
-            if (context.Users.Any())
+            if (context.User.Any())
             {
                 return;
             }
@@ -20,7 +20,7 @@ namespace LectureOrganizer.Data.Seeder
                 new User{ Username = "ElDiabolo", Email = "eldiabolo@gmail.com", Password = "password" }
             };
 
-            context.Users.AddRange(users);
+            context.User.AddRange(users);
             context.SaveChanges();
         }
     }

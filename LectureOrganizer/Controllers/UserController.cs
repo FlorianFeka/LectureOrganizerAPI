@@ -14,29 +14,29 @@ namespace LectureOrganizer.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class UserController : ControllerBase
     {
         private readonly LectureContext _context;
 
-        public UsersController(LectureContext context)
+        public UserController(LectureContext context)
         {
             _context = context;
         }
 
-        // GET: api/Users
+        // GET: api/User
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<User>), (int) HttpStatusCode.OK)]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
-            return await _context.Users.ToListAsync();
+            return await _context.User.ToListAsync();
         }
 
-        // GET: api/Users/5
+        // GET: api/User/5
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(User), (int) HttpStatusCode.OK)]
         public async Task<ActionResult<User>> GetUser(Guid id)
         {
-            var user = await _context.Users.FindAsync(id);
+            var user = await _context.User.FindAsync(id);
 
             if (user == null)
             {
@@ -46,7 +46,7 @@ namespace LectureOrganizer.Controllers
             return user;
         }
 
-        // PUT: api/Users/5
+        // PUT: api/User/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
@@ -79,14 +79,14 @@ namespace LectureOrganizer.Controllers
             return NoContent();
         }
 
-        // POST: api/Users
+        // POST: api/User
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
         [ProducesResponseType(typeof(User), (int) HttpStatusCode.OK)]
         public async Task<ActionResult<User>> PostUser(User user)
         {
-            _context.Users.Add(user);
+            _context.User.Add(user);
             try
             {
                 await _context.SaveChangesAsync();
@@ -106,18 +106,18 @@ namespace LectureOrganizer.Controllers
             return CreatedAtAction("GetUser", new { id = user.UserId }, user);
         }
 
-        // DELETE: api/Users/5
+        // DELETE: api/User/5
         [HttpDelete("{id}")]
         [ProducesResponseType(typeof(User), (int) HttpStatusCode.OK)]
         public async Task<ActionResult<User>> DeleteUser(Guid id)
         {
-            var user = await _context.Users.FindAsync(id);
+            var user = await _context.User.FindAsync(id);
             if (user == null)
             {
                 return NotFound();
             }
 
-            _context.Users.Remove(user);
+            _context.User.Remove(user);
             await _context.SaveChangesAsync();
 
             return user;
@@ -125,7 +125,7 @@ namespace LectureOrganizer.Controllers
 
         private bool UserExists(Guid id)
         {
-            return _context.Users.Any(e => e.UserId == id);
+            return _context.User.Any(e => e.UserId == id);
         }
     }
 }
