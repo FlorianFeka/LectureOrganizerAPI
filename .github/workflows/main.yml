@@ -1,0 +1,18 @@
+on: push
+name: Build Project
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        name: Dotnet Side by Side testing sample
+        steps:
+            - uses: actions/checkout@v2
+            - name: Setup dotnet
+              uses: actions/setup-dotnet@v1
+              with:
+                  dotnet-version: "2.2.103"
+            - name: Setup dotnet
+              uses: actions/setup-dotnet@v1
+              with:
+                  dotnet-version: "3.1.x"
+            - run: dotnet build LectureOrganizer
+            - run: dotnet test LectureOrganizer
