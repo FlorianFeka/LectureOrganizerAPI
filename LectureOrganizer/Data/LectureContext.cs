@@ -1,9 +1,11 @@
 ﻿using LectureOrganizer.Models;
+using LectureOrganizer.Models.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace LectureOrganizer.Data
 {
-    public class LectureContext : DbContext
+    public class LectureContext : IdentityDbContext<ApplicationUser>
     {
         public LectureContext(DbContextOptions<LectureContext> options) : base(options)
         {
